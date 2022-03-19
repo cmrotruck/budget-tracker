@@ -38,6 +38,7 @@ function saveRecord(record) {
   //add record to store using add method
   transactionObjectStore.add(record);
   console.log("Transaction saved locally:", record);
+  alert("Application is offline. Storing data locally.");
 }
 
 function uploadTransactions() {

@@ -1,10 +1,34 @@
 const path = require("path");
 
 module.exports = {
-  entry: "./public/js/index.js",
+  entry: { index: "./public/js/index.js", idb: "./public/js/idb.js" },
   output: {
-    path: path.resolve(__dirname, "public/dist"),
-    filename: "bundle.js",
+    filename: "[name].bundle.js",
+    path: __dirname + "/public/dist",
+  },
+  module: {
+    rules: [
+      {
+        test: /\.(png|jpe?g|gif)$/i,
+        use: [
+          {
+            loader: "file-loader",
+            options: {
+              esModule: false,
+              name(file) {
+                return "[path][name].[ext]";
+              },
+              publicPath(url) {
+                return url.replace("../", "/public/icons/");
+              },
+            },
+          },
+          {
+            loader: "image-webpack-loader",
+          },
+        ],
+      },
+    ],
   },
   mode: "development",
 };
